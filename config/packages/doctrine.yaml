@@ -12,9 +12,10 @@ doctrine:
         mappings:
             App:
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
+                type: annotation
+                dir: '%kernel.project_dir%/src/Infrastructure/Persistence/Doctrine'
+                prefix: 'App\Infrastructure\Persistence\Doctrine'
+                alias: App\Doctrine
 
 when@test:
     doctrine:
