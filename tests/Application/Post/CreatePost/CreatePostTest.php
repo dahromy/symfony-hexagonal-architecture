@@ -8,8 +8,8 @@ use App\Application\Post\CreatePost\CreatePostUseCase;
 use App\Domain\Post\Post;
 
 use App\Infrastructure\Persistence\Doctrine\Post\Post as PostEntity;
-
 use App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineRepository;
+
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
