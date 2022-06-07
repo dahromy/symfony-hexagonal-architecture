@@ -1,20 +1,41 @@
 <?php
 
-namespace App\Application\Blog\CreatePost;
+namespace App\Domain\Post;
 
 use DateTimeInterface;
 
-class CreatePostCommand
+class Post
 {
+    private string $uuid;
     private string $title;
     private string $content;
     private ?DateTimeInterface $publishedAt;
 
-    public function __construct(string $title, string $content, ?DateTimeInterface $publishedAt = null)
+    public function __construct(string $title = '', string $content = '', ?DateTimeInterface $publishedAt = null, ?string $uuid = null)
     {
         $this->title = $title;
         $this->content = $content;
         $this->publishedAt = $publishedAt;
+        $this->uuid = $uuid ?? uniqid();
+    }
+
+    /**
+     * @return string
+     */
+    public function getUuid(): string
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param string $uuid
+     * @return Post
+     */
+    public function setUuid(string $uuid): Post
+    {
+        $this->uuid = $uuid;
+
+        return $this;
     }
 
     /**
@@ -27,9 +48,9 @@ class CreatePostCommand
 
     /**
      * @param string $title
-     * @return CreatePostCommand
+     * @return Post
      */
-    public function setTitle(string $title): CreatePostCommand
+    public function setTitle(string $title): Post
     {
         $this->title = $title;
 
@@ -46,9 +67,9 @@ class CreatePostCommand
 
     /**
      * @param string $content
-     * @return CreatePostCommand
+     * @return Post
      */
-    public function setContent(string $content): CreatePostCommand
+    public function setContent(string $content): Post
     {
         $this->content = $content;
 
@@ -65,9 +86,9 @@ class CreatePostCommand
 
     /**
      * @param DateTimeInterface|null $publishedAt
-     * @return CreatePostCommand
+     * @return Post
      */
-    public function setPublishedAt(?DateTimeInterface $publishedAt): CreatePostCommand
+    public function setPublishedAt(?DateTimeInterface $publishedAt): Post
     {
         $this->publishedAt = $publishedAt;
 

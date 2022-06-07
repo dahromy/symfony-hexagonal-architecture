@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Application\Blog\CreatePost;
+namespace App\Application\Post\CreatePost;
 
-use App\Domain\Blog\Post;
-use App\Domain\Blog\Services\PostRepositoryInterface;
+use App\Domain\Post\Post;
+use App\Domain\Post\Services\PostRepositoryInterface;
 
 class CreatePostUseCase
 {
@@ -21,8 +21,6 @@ class CreatePostUseCase
     {
         $post = new Post($createPostCommand->getTitle(), $createPostCommand->getContent(), $createPostCommand->getPublishedAt());
 
-        $this->postRepository->save($post);
-
-        return $post;
+        return $this->postRepository->save($post);
     }
 }
