@@ -4,12 +4,15 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    app.db_in_files.root_folder: '%kernel.project_dir%/var/my-filesystem'
 
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+            $rootDir: '%app.db_in_files.root_folder%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
@@ -22,9 +25,15 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
             - '../migrations'
+            
+    App\Infrastructure\Persistence\Doctrine\:
+        resource: '../src/Infrastructure/Persistence/Doctrine/**/*Parser.php'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    App\Infrastructure\Controller\:
+        resource: '../src/Infrastructure/Controller/'
+        tags: [ 'controller.service_arguments' ]
     
     App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineParser: ~
     App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineRepository: ~

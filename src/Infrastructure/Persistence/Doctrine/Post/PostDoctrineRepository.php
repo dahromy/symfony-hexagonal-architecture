@@ -7,7 +7,6 @@ use App\Domain\Post\Post as PostDomain;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use phpDocumentor\Reflection\Types\This;
 use Symfony\Component\Uid\Uuid;
 
 /**
