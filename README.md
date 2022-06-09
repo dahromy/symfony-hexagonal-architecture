@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://www.elao.com/resized/content/images/blog/2017/clean-architecture.png/f0ff1a140e1b411d7ac36e6e3cf59d39.png" alt="hexagon">
+    <img src="public/assets/hexagon.jpeg" alt="hexagon">
 </p>
 
 <h1 align="center">
