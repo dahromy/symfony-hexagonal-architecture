@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="public/assets/hexagon.jpeg" alt="hexagon">
+    <img src="public/assets/hexagon.jpg" alt="hexagon">
 </p>
 
 <h1 align="center">
