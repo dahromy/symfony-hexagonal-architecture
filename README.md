@@ -51,17 +51,17 @@ With this, we can see that the current structure of a Bounded Context is:
 $ tree -L 5 src
     
 src
-├── Application // The application of our app
+├── Application // The application layer of our app
 │   └── Post // Inside the application layer all is structured by actions
 │       └── CreatePost
 │           ├── CreatePostCommand.php
 │           └── CreatePostUseCase.php
-├── Domain // The domain of our app
+├── Domain // The domain layer of our app
 │   └── Post
 │       ├── Post.php // The Aggregate of the Module
 │       └── Services
 │           └── PostRepositoryInterface.php // The `Interface` of the repository is inside Domain
-├── Infrastructure // The infrastructure of our app
+├── Infrastructure // The layer infrastructure of our app
 │   ├── Controller
 │   └── Persistence
 │       ├── Doctrine
