@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -14,6 +14,14 @@
         {% endblock %}
     </head>
     <body>
+        {% block messages %}
+            {% for type, messages in app.flashes %}
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            {% endfor %}
+        {% endblock %}
+
         {% block body %}{% endblock %}
     </body>
 </html>

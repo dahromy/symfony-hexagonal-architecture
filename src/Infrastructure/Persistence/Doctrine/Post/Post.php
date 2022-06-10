@@ -38,7 +38,7 @@ class Post
      *
      * @param Uuid|null $uuid
      */
-    public function __construct(?Uuid $uuid)
+    public function __construct(?Uuid $uuid = null)
     {
         $this->id = $uuid;
     }

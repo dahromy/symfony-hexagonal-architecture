@@ -21,6 +21,8 @@ services:
         exclude:
             - '../src/DependencyInjection/'
             - '../src/Domain/'
+            - '../src/Application/**/*Command.php'
+            - '../src/Application/**/*Response.php'
             - '../src/Infrastructure/Persistence/Doctrine/'
             - '../src/Kernel.php'
             - '../src/Tests/'
@@ -28,6 +30,9 @@ services:
             
     App\Infrastructure\Persistence\Doctrine\:
         resource: '../src/Infrastructure/Persistence/Doctrine/**/*Parser.php'
+        
+    App\Domain\Shared\:
+        resource: '../src/Domain/Shared/'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
@@ -37,3 +42,5 @@ services:
     
     App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineParser: ~
     App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineRepository: ~
+    
+    App\Domain\Post\Services\PostRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineRepository'
