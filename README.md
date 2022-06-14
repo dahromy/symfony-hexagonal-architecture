@@ -104,5 +104,5 @@ There are some things missing (add some features: exception, ui, improve documen
 some guidelines feel free to contact us :)
 
 [1]: https://symfony.com/doc/5.4/index.html
-[2]: https://symfony.com/doc/current/setup.html#technical-requirements
-[3]: https://symfony.com/doc/current/setup/web_server_configuration.html
+[2]: https://symfony.com/doc/5.4/setup.html#technical-requirements
+[3]: https://symfony.com/doc/5.4/setup/web_server_configuration.html
