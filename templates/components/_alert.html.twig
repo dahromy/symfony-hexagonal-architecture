@@ -1,0 +1,7 @@
+{% for type, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ type == 'error' ? 'danger' : type }} alert-dismissible fade show" role="alert">
+            <strong>{{ type|capitalize }}!</strong> {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}

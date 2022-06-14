@@ -5,6 +5,7 @@ namespace App\UI\Form\Post;
 use App\Infrastructure\Persistence\Doctrine\Post\Post;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,8 +19,18 @@ class PostType extends AbstractType
         $builder
             ->add('title', TextType::class)
             ->add('content', TextareaType::class)
-            ->add('publishedAt')
-            ->add('save', SubmitType::class)
+            ->add('publishedAt', DateTimeType::class, [
+                'date_widget' => 'single_text',
+                'time_widget' => 'single_text',
+                'date_label' => false,
+                'time_label' => false,
+                'required' => false
+            ])
+            ->add('save', SubmitType::class, [
+                'attr' => [
+                    'class' => 'w-100 btn btn-primary btn-lg'
+                ]
+            ])
         ;
     }
 
@@ -27,6 +38,10 @@ class PostType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Post::class,
+            'attr' => [
+                'class' => 'needs-validation',
+                'novalidate' => true
+            ]
         ]);
     }
 }

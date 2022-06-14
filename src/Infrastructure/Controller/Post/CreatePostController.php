@@ -25,7 +25,6 @@ class CreatePostController extends AbstractController
      * @param CreatePostUseCase $createPostUseCase
      *
      * @return Response
-     * @throws InvalidPostDataException
      */
     public function __invoke(Request $request, CreatePostUseCase $createPostUseCase): Response
     {
@@ -37,15 +36,20 @@ class CreatePostController extends AbstractController
         if ($form->isSubmitted() and $form->isValid()) {
 
             $createPostCommand = new CreatePostCommand(
-                $post->getTitle(),
-                $post->getContent(),
-                $post->getPublishedAt()
+                $post->getTitle() ?? '',
+                $post->getContent() ?? '',
+                $post->getPublishedAt() ?? null
             );
 
-            $post = $createPostUseCase->execute($createPostCommand);
+            try {
+                $post = $createPostUseCase->execute($createPostCommand);
 
-            $this->addFlash('success', "{$post->getTitle()} created.");
-            return $this->redirectToRoute('app.post.create');
+                $this->addFlash('success', "{$post->getTitle()} created.");
+
+                return $this->redirectToRoute('app.post.create');
+            }catch (InvalidPostDataException $dataException){
+                $this->addFlash('error', $dataException->getMessage());
+            }
         }
 
         return $this->render('post/form.html.twig', [

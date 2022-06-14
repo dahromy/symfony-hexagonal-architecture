@@ -21,12 +21,12 @@ class Post
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $title;
+    private $title;
 
     /**
      * @ORM\Column(type="text")
      */
-    private ?string $content;
+    private $content;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
