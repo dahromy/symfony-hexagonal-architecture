@@ -58,7 +58,7 @@ This project is made with [Symfony][1] 5.4.
 ### ✅ Tests execution
 
 1. Install the dependencies if you haven't done it previously: `composer install`
-2. Execute PHPUnit and Behat tests: `php bin/phpunit --configuration phpunit.xml.dist`
+2. Execute PHPUnit tests: `php bin/phpunit --configuration phpunit.xml.dist`
 
 ### 🎯 Hexagonal Architecture
 
