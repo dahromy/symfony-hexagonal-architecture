@@ -24,7 +24,7 @@ class CreatePostTest extends KernelTestCase
      */
     public function testCreatePost()
     {
-        $postRepository = $this->getRepository('file');
+        $postRepository = $this->getRepository();
 
         $createPostUserCase = new CreatePostUseCase($postRepository);
 
