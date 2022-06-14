@@ -13,7 +13,7 @@
 
 <p align="center">
    Example of a <strong>Symfony application using Domain-Driven Design (DDD) and <br /> 
-   Test Driver Development (TDD) principles</strong> keeping the code as simple as possible.
+   Test Driver Development (TDD) principes</strong> keeping the code as simple as possible.
   <br />
   <br />
   Take a look, play and have fun with this.
