@@ -2,19 +2,16 @@
 
 namespace App\Tests\Application\Post\CreatePost;
 
-use App\Domain\Post\Exceptions\InvalidPostDataException;
-use App\Domain\Post\Post;
-
 use App\Application\Post\CreatePost\CreatePostCommand;
 use App\Application\Post\CreatePost\CreatePostUseCase;
-
-use App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineRepository;
+use App\Domain\Post\Exceptions\InvalidPostDataException;
+use App\Domain\Post\Post;
 use App\Infrastructure\Persistence\Doctrine\Post\Post as PostEntity;
+use App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineRepository;
 use App\Infrastructure\Persistence\InFile\FilesystemHandler;
 use App\Infrastructure\Persistence\InFile\Post\InFilePostParser;
 use App\Infrastructure\Persistence\InFile\Post\InFilePostRepository;
 use App\Infrastructure\Persistence\InMemory\Post\InMemoryPostRepository;
-
 use DateTime;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -27,21 +24,7 @@ class CreatePostTest extends KernelTestCase
      */
     public function testCreatePost()
     {
-        // To use InMemoryPostRepository uncomment the below line
-
-        $postRepository = new InMemoryPostRepository();
-
-        // To use PostDoctrineRepository uncomment the below line
-
-        /** @var PostDoctrineRepository $postRepository */
-        // $postRepository = static::getContainer()->get('doctrine')->getRepository(PostEntity::class);
-
-        // To use InFilePostRepository uncomment the below line
-
-        // $fileSystem = new Filesystem();
-        // $fileHandler = new FilesystemHandler($fileSystem, static::getContainer()->getParameter('app.db_in_files.root_folder'));
-        // $postParser = new InFilePostParser();
-        // $postRepository = new InFilePostRepository($fileHandler, $postParser);
+        $postRepository = $this->getRepository('file');
 
         $createPostUserCase = new CreatePostUseCase($postRepository);
 
@@ -58,6 +41,32 @@ class CreatePostTest extends KernelTestCase
     }
 
     /**
+     * @param string $type
+     *
+     * @return InFilePostRepository|InMemoryPostRepository|PostDoctrineRepository
+     */
+    public function getRepository(string $type = 'memory')
+    {
+        switch ($type) {
+            case'file';
+                $fileSystem = new Filesystem();
+                $fileHandler = new FilesystemHandler($fileSystem, static::getContainer()->getParameter('app.db_in_files.root_folder'));
+                $postParser = new InFilePostParser();
+                $repository = new InFilePostRepository($fileHandler, $postParser);
+
+                break;
+            case'doctrine':
+                $repository = static::getContainer()->get('doctrine')->getRepository(PostEntity::class);
+                break;
+            default:
+                $repository = new InMemoryPostRepository();
+                break;
+        }
+
+        return $repository;
+    }
+
+    /**
      * @param $postData
      *
      * @return void
@@ -69,33 +78,22 @@ class CreatePostTest extends KernelTestCase
     {
         $this->expectException(InvalidPostDataException::class);
 
-        // To use InMemoryPostRepository uncomment the below line
-
-        $postRepository = new InMemoryPostRepository();
-
-        // To use PostDoctrineRepository uncomment the below line
-
-        /** @var PostDoctrineRepository $postRepository */
-        // $postRepository = static::getContainer()->get('doctrine')->getRepository(PostEntity::class);
-
-        // To use InFilePostRepository uncomment the below line
-
-        // $fileSystem = new Filesystem();
-        // $fileHandler = new FilesystemHandler($fileSystem, static::getContainer()->getParameter('app.db_in_files.root_folder'));
-        // $postParser = new InFilePostParser();
-        // $postRepository = new InFilePostRepository($fileHandler, $postParser);
+        $postRepository = $this->getRepository();
 
         $createPostUserCase = new CreatePostUseCase($postRepository);
 
         $createPostCommand = new CreatePostCommand(
             $postData['title'] ?? '',
             $postData['content'] ?? '',
-            $postData['publishedAt'] ?? null
+            $postData['publishedAt'] ?? NULL
         );
 
         $createPostUserCase->execute($createPostCommand);
     }
 
+    /**
+     * @return array
+     */
     public function provideTrimInvalidData(): array
     {
         return [
