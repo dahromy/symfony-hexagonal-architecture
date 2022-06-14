@@ -3,7 +3,6 @@
 namespace App\UI\Form\Post;
 
 use App\Infrastructure\Persistence\Doctrine\Post\Post;
-
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -22,16 +21,16 @@ class PostType extends AbstractType
             ->add('publishedAt', DateTimeType::class, [
                 'date_widget' => 'single_text',
                 'time_widget' => 'single_text',
-                'date_label' => false,
-                'time_label' => false,
-                'required' => false
+                'date_label' => FALSE,
+                'time_label' => FALSE,
+                'required' => FALSE,
+                'label' => FALSE,
             ])
             ->add('save', SubmitType::class, [
                 'attr' => [
-                    'class' => 'w-100 btn btn-primary btn-lg'
-                ]
-            ])
-        ;
+                    'class' => 'w-100 btn btn-primary btn-lg',
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -40,8 +39,8 @@ class PostType extends AbstractType
             'data_class' => Post::class,
             'attr' => [
                 'class' => 'needs-validation',
-                'novalidate' => true
-            ]
+                'novalidate' => TRUE,
+            ],
         ]);
     }
 }
