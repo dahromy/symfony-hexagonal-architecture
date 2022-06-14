@@ -46,7 +46,7 @@ This project is made with [Symfony][1] 5.4.
 ### 🔥 Application execution
 
 1. Install the backend dependencies: `composer install`.
-3. Create database & tables with `php bin/console make:migration` and `php bin/console migration:migrate` or force with `php bin/console d:s:u -f`
+3. Create database & tables with `php bin/console d:d:c` then `php bin/console make:migration` and `php bin/console migration:migrate` or force with `php bin/console d:s:u -f`
 5. Install the fronted dependencies: `yarn install` or `npm install`.
 6. For the development purpose, run `yarn watch` or `npm run watch`. For the production version, run `yarn build` or `npm run build`.
 7. Start the server with Symfony: `symfony serve`.
