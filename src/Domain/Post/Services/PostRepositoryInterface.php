@@ -6,7 +6,7 @@ use App\Domain\Post\Post;
 
 interface PostRepositoryInterface
 {
-    public function save(Post $post) : Post;
+    public function save(Post $post): void;
 
-    public function findOneByUuid(string $uuid) : ?Post;
+    public function findOneByUuid(string $uuid): ?Post;
 }

@@ -3,9 +3,9 @@
 namespace App\Tests\Application\Post\CreatePost;
 
 use App\Application\Post\CreatePost\CreatePostCommand;
+use App\Application\Post\CreatePost\CreatePostResponse;
 use App\Application\Post\CreatePost\CreatePostUseCase;
 use App\Domain\Post\Exceptions\InvalidPostDataException;
-use App\Domain\Post\Post;
 use App\Infrastructure\Persistence\Doctrine\Post\Post as PostEntity;
 use App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineRepository;
 use App\Infrastructure\Persistence\InFile\FilesystemHandler;
@@ -34,10 +34,10 @@ class CreatePostTest extends KernelTestCase
             new DateTime('2022-06-06 22:50:00')
         );
 
-        $post = $createPostUserCase->execute($createPostCommand);
+        $postResponse = $createPostUserCase->execute($createPostCommand);
 
-        $this->assertInstanceOf(Post::class, $post);
-        $this->assertEquals($post, $postRepository->findOneByUuid($post->getUuid()));
+        $this->assertInstanceOf(CreatePostResponse::class, $postResponse);
+        $this->assertEquals($postResponse->getPost(), $postRepository->findOneByUuid($postResponse->getPost()->getUuid()));
     }
 
     /**

@@ -2,9 +2,8 @@
 
 namespace App\Infrastructure\Persistence\Doctrine\Post;
 
-use App\Domain\Post\Services\PostRepositoryInterface;
 use App\Domain\Post\Post as PostDomain;
-
+use App\Domain\Post\Services\PostRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Uid\Uuid;
@@ -12,17 +11,17 @@ use Symfony\Component\Uid\Uuid;
 /**
  * @extends ServiceEntityRepository<Post>
  *
- * @method Post|null find($id, $lockMode = null, $lockVersion = null)
- * @method Post|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Post|null find($id, $lockMode = NULL, $lockVersion = NULL)
+ * @method Post|null findOneBy(array $criteria, array $orderBy = NULL)
  * @method Post[]    findAll()
- * @method Post[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Post[]    findBy(array $criteria, array $orderBy = NULL, $limit = NULL, $offset = NULL)
  */
 class PostDoctrineRepository extends ServiceEntityRepository implements PostRepositoryInterface
 {
     private PostDoctrineParser $doctrineParser;
 
     /**
-     * @param ManagerRegistry $registry
+     * @param ManagerRegistry    $registry
      * @param PostDoctrineParser $doctrineParser
      */
     public function __construct(ManagerRegistry $registry, PostDoctrineParser $doctrineParser)
@@ -31,7 +30,22 @@ class PostDoctrineRepository extends ServiceEntityRepository implements PostRepo
         $this->doctrineParser = $doctrineParser;
     }
 
-    public function add(Post $entity, bool $flush = false): Post
+    public function remove(Post $entity, bool $flush = FALSE): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function save(PostDomain $post): void
+    {
+        $postDoctrine = $this->doctrineParser->toDoctrine($post);
+        $this->add($postDoctrine, TRUE);
+    }
+
+    public function add(Post $entity, bool $flush = FALSE): Post
     {
         $this->getEntityManager()->persist($entity);
 
@@ -42,26 +56,9 @@ class PostDoctrineRepository extends ServiceEntityRepository implements PostRepo
         return $entity;
     }
 
-    public function remove(Post $entity, bool $flush = false): void
-    {
-        $this->getEntityManager()->remove($entity);
-
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
-    }
-
-    public function save(PostDomain $post) : PostDomain
-    {
-        $postDoctrine = $this->doctrineParser->toDoctrine($post);
-        $post = $this->add($postDoctrine, true);
-
-        return $this->doctrineParser->toDomain($post);
-    }
-
     public function findOneByUuid(string $uuid): ?PostDomain
     {
         $postDoctrine = $this->find(Uuid::fromString($uuid));
-        return is_null($postDoctrine) ? null : $this->doctrineParser->toDomain($postDoctrine);
+        return is_null($postDoctrine) ? NULL : $this->doctrineParser->toDomain($postDoctrine);
     }
 }
