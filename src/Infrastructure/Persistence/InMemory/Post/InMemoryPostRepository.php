@@ -11,11 +11,11 @@ class InMemoryPostRepository implements PostRepositoryInterface
 
     public function save(Post $post): void
     {
-        $this->posts[$post->getUuid()] = $post;
+        $this->posts[$post->getId()] = $post;
     }
 
-    public function findOneByUuid(string $uuid): ?Post
+    public function findOneById(string $id): ?Post
     {
-        return $this->posts[$uuid] ?? NULL;
+        return $this->posts[$id] ?? NULL;
     }
 }

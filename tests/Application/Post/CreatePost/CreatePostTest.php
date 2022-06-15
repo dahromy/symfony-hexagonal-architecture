@@ -6,6 +6,7 @@ use App\Application\Post\CreatePost\CreatePostCommand;
 use App\Application\Post\CreatePost\CreatePostResponse;
 use App\Application\Post\CreatePost\CreatePostUseCase;
 use App\Domain\Post\Exceptions\InvalidPostDataException;
+use App\Domain\Shared\IdGenerator;
 use App\Infrastructure\Persistence\Doctrine\Post\Post as PostEntity;
 use App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineRepository;
 use App\Infrastructure\Persistence\InFile\FilesystemHandler;
@@ -24,9 +25,10 @@ class CreatePostTest extends KernelTestCase
      */
     public function testCreatePost()
     {
-        $postRepository = $this->getRepository();
+        $idGenerator = new IdGenerator;
+        $postRepository = $this->getRepository('doctrine');
 
-        $createPostUserCase = new CreatePostUseCase($postRepository);
+        $createPostUserCase = new CreatePostUseCase($postRepository, $idGenerator);
 
         $createPostCommand = new CreatePostCommand(
             'Post title for test',
@@ -34,10 +36,10 @@ class CreatePostTest extends KernelTestCase
             new DateTime('2022-06-06 22:50:00')
         );
 
-        $postResponse = $createPostUserCase->execute($createPostCommand);
+        $postResponse = $createPostUserCase->create($createPostCommand);
 
         $this->assertInstanceOf(CreatePostResponse::class, $postResponse);
-        $this->assertEquals($postResponse->getPost(), $postRepository->findOneByUuid($postResponse->getPost()->getUuid()));
+        $this->assertEquals($postResponse->getPost(), $postRepository->findOneById($postResponse->getPost()->getId()));
     }
 
     /**
@@ -78,9 +80,10 @@ class CreatePostTest extends KernelTestCase
     {
         $this->expectException(InvalidPostDataException::class);
 
+        $idGenerator = new IdGenerator;
         $postRepository = $this->getRepository();
 
-        $createPostUserCase = new CreatePostUseCase($postRepository);
+        $createPostUserCase = new CreatePostUseCase($postRepository, $idGenerator);
 
         $createPostCommand = new CreatePostCommand(
             $postData['title'] ?? '',
@@ -88,7 +91,7 @@ class CreatePostTest extends KernelTestCase
             $postData['publishedAt'] ?? NULL
         );
 
-        $createPostUserCase->execute($createPostCommand);
+        $createPostUserCase->create($createPostCommand);
     }
 
     /**

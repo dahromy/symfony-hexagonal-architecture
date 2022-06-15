@@ -5,8 +5,9 @@ namespace App\Infrastructure\Persistence\Doctrine\Post;
 use App\Domain\Post\Post as PostDomain;
 use App\Domain\Post\Services\PostRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Uid\UuidV6;
 
 /**
  * @extends ServiceEntityRepository<Post>
@@ -56,9 +57,18 @@ class PostDoctrineRepository extends ServiceEntityRepository implements PostRepo
         return $entity;
     }
 
-    public function findOneByUuid(string $uuid): ?PostDomain
+    /**
+     * @throws NonUniqueResultException
+     */
+    public function findOneById(string $id): ?PostDomain
     {
-        $postDoctrine = $this->find(Uuid::fromString($uuid));
+        $postDoctrine = $this
+            ->createQueryBuilder('p')
+            ->where('p.id = :id')
+            ->setParameter('id', UuidV6::fromString($id)->toBinary())
+            ->getQuery()
+            ->getOneOrNullResult();
+
         return is_null($postDoctrine) ? NULL : $this->doctrineParser->toDomain($postDoctrine);
     }
 }

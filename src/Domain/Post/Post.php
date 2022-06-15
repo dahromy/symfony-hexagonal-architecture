@@ -6,36 +6,29 @@ use DateTimeInterface;
 
 class Post
 {
-    private string $uuid;
+
+    private string $id;
     private string $title;
     private string $content;
     private ?DateTimeInterface $publishedAt;
 
-    public function __construct(string $title = '', string $content = '', ?DateTimeInterface $publishedAt = null, ?string $uuid = null)
+    /**
+     * Post constructor.
+     */
+    public function __construct(string $id, string $title, string $content, ?DateTimeInterface $publishedAt)
     {
+        $this->id = $id;
         $this->title = $title;
         $this->content = $content;
         $this->publishedAt = $publishedAt;
-        $this->uuid = $uuid ?? uniqid();
     }
 
     /**
      * @return string
      */
-    public function getUuid(): string
+    public function getId(): string
     {
-        return $this->uuid;
-    }
-
-    /**
-     * @param string $uuid
-     * @return Post
-     */
-    public function setUuid(string $uuid): Post
-    {
-        $this->uuid = $uuid;
-
-        return $this;
+        return $this->id;
     }
 
     /**
@@ -48,6 +41,7 @@ class Post
 
     /**
      * @param string $title
+     *
      * @return Post
      */
     public function setTitle(string $title): Post
@@ -67,6 +61,7 @@ class Post
 
     /**
      * @param string $content
+     *
      * @return Post
      */
     public function setContent(string $content): Post
@@ -86,6 +81,7 @@ class Post
 
     /**
      * @param DateTimeInterface|null $publishedAt
+     *
      * @return Post
      */
     public function setPublishedAt(?DateTimeInterface $publishedAt): Post

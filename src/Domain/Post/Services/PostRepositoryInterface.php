@@ -8,5 +8,5 @@ interface PostRepositoryInterface
 {
     public function save(Post $post): void;
 
-    public function findOneByUuid(string $uuid): ?Post;
+    public function findOneById(string $id): ?Post;
 }

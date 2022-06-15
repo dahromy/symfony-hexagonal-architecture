@@ -29,15 +29,15 @@ class InFilePostRepository implements PostRepositoryInterface
     public function save(Post $post): void
     {
         $fileContent = $this->fileParser->toInFile($post);
-        $this->filesystemHandler->createFile($post->getUuid(), $fileContent);
+        $this->filesystemHandler->createFile($post->getId(), $fileContent);
     }
 
     /**
      * @throws Exception
      */
-    public function findOneByUuid(string $uuid): ?Post
+    public function findOneById(string $id): ?Post
     {
-        $fileContent = $this->filesystemHandler->readFile($uuid);
+        $fileContent = $this->filesystemHandler->readFile($id);
         if (is_null($fileContent)) return NULL;
 
         return $this->fileParser->toDomain($fileContent);

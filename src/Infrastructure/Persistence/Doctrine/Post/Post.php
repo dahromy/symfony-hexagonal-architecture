@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Persistence\Doctrine\Post;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 
@@ -13,8 +14,6 @@ class Post
     /**
      * @ORM\Id
      * @ORM\Column(type="uuid", unique=true)
-     * @ORM\GeneratedValue(strategy="CUSTOM")
-     * @ORM\CustomIdGenerator(class="doctrine.uuid_generator")
      */
     private ?Uuid $id;
 
@@ -31,14 +30,14 @@ class Post
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?\DateTimeInterface $publishedAt;
+    private ?DateTimeInterface $publishedAt;
 
     /**
      * Post constructor.
      *
      * @param Uuid|null $uuid
      */
-    public function __construct(?Uuid $uuid = null)
+    public function __construct(?Uuid $uuid = NULL)
     {
         $this->id = $uuid;
     }
@@ -72,12 +71,12 @@ class Post
         return $this;
     }
 
-    public function getPublishedAt(): ?\DateTimeInterface
+    public function getPublishedAt(): ?DateTimeInterface
     {
         return $this->publishedAt;
     }
 
-    public function setPublishedAt(?\DateTimeInterface $publishedAt): self
+    public function setPublishedAt(?DateTimeInterface $publishedAt): self
     {
         $this->publishedAt = $publishedAt;
 

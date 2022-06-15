@@ -5,6 +5,7 @@ namespace App\Application\Post\CreatePost;
 use App\Domain\Post\Exceptions\InvalidPostDataException;
 use App\Domain\Post\Post;
 use App\Domain\Post\Services\PostRepositoryInterface;
+use App\Domain\Shared\IdGenerator;
 use Assert\LazyAssertionException;
 use DateTimeInterface;
 use function Assert\lazy;
@@ -12,21 +13,29 @@ use function Assert\lazy;
 class CreatePostUseCase
 {
     private PostRepositoryInterface $postRepository;
+    private IdGenerator $idGenerator;
 
     /**
      * @param PostRepositoryInterface $postRepository
+     * @param IdGenerator             $idGenerator
      */
-    public function __construct(PostRepositoryInterface $postRepository)
+    public function __construct(PostRepositoryInterface $postRepository, IdGenerator $idGenerator)
     {
         $this->postRepository = $postRepository;
+        $this->idGenerator = $idGenerator;
     }
 
     /**
+     * @param CreatePostCommand $command
+     *
+     * @return CreatePostResponse
      * @throws InvalidPostDataException
      */
-    public function execute(CreatePostCommand $createPostCommand): CreatePostResponse
+    public function create(CreatePostCommand $command): CreatePostResponse
     {
-        $post = new Post($createPostCommand->getTitle(), $createPostCommand->getContent(), $createPostCommand->getPublishedAt());
+        $id = $this->generatePostId();
+
+        $post = new Post($id, $command->getTitle(), $command->getContent(), $command->getPublishedAt());
 
         try {
             $this->validate($post);
@@ -37,6 +46,23 @@ class CreatePostUseCase
         } catch (LazyAssertionException $e) {
             throw new InvalidPostDataException($e->getMessage());
         }
+    }
+
+    private function generatePostId(): string
+    {
+        $maxAttempts = 5;
+        $attempts = 0;
+        $id = $this->idGenerator->generate();
+
+        while ($attempts < $maxAttempts && !is_null($this->postRepository->findOneById($id))) {
+            $id = $this->idGenerator->generate();
+            $attempts++;
+            if ($attempts >= $maxAttempts) {
+                // throw new IdGenerationAttemptsExceeded($maxAttempts);
+            }
+        }
+
+        return $id;
     }
 
     protected function validate(Post $post)
