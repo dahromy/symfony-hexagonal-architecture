@@ -2,7 +2,7 @@
     <img src="public/assets/hexagon.jpg" alt="hexagon">
 </p>
 
-<h1 style="text-align: center;">
+<h1 style="display:flex; justify-content: center; align-items: center; text-align: center">
   🐘🎯 Hexagonal Architecture, DDD & TDD in Symfony
 </h1>
 
