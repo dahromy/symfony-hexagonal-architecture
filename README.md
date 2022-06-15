@@ -2,11 +2,11 @@
     <img src="public/assets/hexagon.jpg" alt="hexagon">
 </p>
 
-<h1 style="display:flex; justify-content: center; align-items: center; text-align: center">
+<h1 style="margin-right: auto; margin-left: auto;">
   🐘🎯 Hexagonal Architecture, DDD & TDD in Symfony
 </h1>
 
-<p style="display:flex; justify-content: center; align-items: center; text-align: center">
+<p style="text-align: center;">
     <a href="https://github.com/dahromy"><img src="https://img.shields.io/badge/dahromy-OS-green.svg?style=flat-square" alt="dahromy"/></a>
     <a href="#"><img src="https://img.shields.io/badge/Symfony-5.4-purple.svg?style=flat-square&logo=symfony" alt="Symfony 5.4"/></a>
 </p>
