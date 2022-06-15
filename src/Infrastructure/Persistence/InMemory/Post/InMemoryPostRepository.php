@@ -7,6 +7,7 @@ use App\Domain\Post\Services\PostRepositoryInterface;
 
 class InMemoryPostRepository implements PostRepositoryInterface
 {
+    /** @var array<array-key, Post> */
     protected array $posts = [];
 
     public function save(Post $post): void
@@ -16,6 +17,6 @@ class InMemoryPostRepository implements PostRepositoryInterface
 
     public function findOneById(string $id): ?Post
     {
-        return $this->posts[$id] ?? NULL;
+        return $this->posts[$id] ?? null;
     }
 }

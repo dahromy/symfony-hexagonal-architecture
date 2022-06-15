@@ -65,7 +65,12 @@ class CreatePostUseCase
         return $id;
     }
 
-    protected function validate(Post $post)
+    /**
+     * @param Post $post
+     *
+     * @return void
+     */
+    protected function validate(Post $post): void
     {
         lazy()
             ->that($post->getTitle())->notBlank()->minLength(3)

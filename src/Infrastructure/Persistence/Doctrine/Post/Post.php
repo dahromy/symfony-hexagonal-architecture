@@ -20,12 +20,12 @@ class Post
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private ?string $title;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $content;
+    private ?string $content;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -37,7 +37,7 @@ class Post
      *
      * @param Uuid|null $uuid
      */
-    public function __construct(?Uuid $uuid = NULL)
+    public function __construct(?Uuid $uuid = null)
     {
         $this->id = $uuid;
     }

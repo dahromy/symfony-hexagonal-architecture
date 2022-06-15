@@ -8,6 +8,11 @@ use Symfony\Component\Uid\Uuid;
 
 class PostDoctrineParser
 {
+    /**
+     * @param PostEntity $postEntity
+     *
+     * @return Post
+     */
     public function toDomain(PostEntity $postEntity): Post
     {
         return new Post(

@@ -78,16 +78,4 @@ class Post
     {
         return $this->publishedAt;
     }
-
-    /**
-     * @param DateTimeInterface|null $publishedAt
-     *
-     * @return Post
-     */
-    public function setPublishedAt(?DateTimeInterface $publishedAt): Post
-    {
-        $this->publishedAt = $publishedAt;
-
-        return $this;
-    }
 }

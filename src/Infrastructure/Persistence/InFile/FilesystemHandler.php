@@ -15,8 +15,9 @@ class FilesystemHandler
 
     /**
      * FilesystemHandler constructor.
+     *
      * @param Filesystem $filesystem
-     * @param string $rootDir
+     * @param string     $rootDir
      */
     public function __construct(Filesystem $filesystem, string $rootDir)
     {
@@ -25,10 +26,26 @@ class FilesystemHandler
         $this->rootDir = $rootDir;
     }
 
-    public function createFile(string $filename, string $content)
+    /**
+     * @param string $filename
+     * @param string $content
+     *
+     * @return void
+     */
+    public function createFile(string $filename, string $content): void
     {
         $this->ensureRootFolderExists();
-        $this->filesystem->dumpFile("{$this->rootDir}/{$filename}", $content);
+        $this->filesystem->dumpFile("$this->rootDir/$filename", $content);
+    }
+
+    /**
+     * @return void
+     */
+    private function ensureRootFolderExists(): void
+    {
+        if (!$this->filesystem->exists($this->rootDir)) {
+            $this->filesystem->mkdir($this->rootDir);
+        }
     }
 
     public function readFile(string $filename): ?string
@@ -42,12 +59,5 @@ class FilesystemHandler
         }
 
         return $content;
-    }
-
-    private function ensureRootFolderExists()
-    {
-        if (!$this->filesystem->exists($this->rootDir)) {
-            $this->filesystem->mkdir($this->rootDir);
-        }
     }
 }
