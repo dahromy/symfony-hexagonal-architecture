@@ -6,7 +6,7 @@
   🐘🎯 Hexagonal Architecture, DDD & TDD in Symfony
 </h1>
 
-<p style="text-align: center;">
+<p style="display:flex; justify-content: center; align-items: center; text-align: center">
     <a href="https://github.com/dahromy"><img src="https://img.shields.io/badge/dahromy-OS-green.svg?style=flat-square" alt="dahromy"/></a>
     <a href="#"><img src="https://img.shields.io/badge/Symfony-5.4-purple.svg?style=flat-square&logo=symfony" alt="Symfony 5.4"/></a>
 </p>
