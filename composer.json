@@ -75,7 +75,7 @@
     "symfony/polyfill-php72": "*"
   },
   "scripts": {
-    "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon src tests --level 7 --no-progress",
+    "phpstan": "vendor/bin/phpstan analyse -c phpstan.neon src tests --level max --no-progress",
     "tests": "phpunit --configuration phpunit.xml.dist",
     "ci": [
       "@phpstan",

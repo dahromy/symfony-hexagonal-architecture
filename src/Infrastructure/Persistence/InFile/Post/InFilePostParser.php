@@ -22,6 +22,14 @@ class InFilePostParser
 
     public function toInFile(Post $post): string
     {
-        return "{$post->getId()}~{$post->getTitle()}~{$post->getContent()}~{$post->getPublishedAt()->format('YmdHis')}";
+        $publishedAt = $post->getPublishedAt() ? $post->getPublishedAt()->format('YmdHis') : null;
+
+        $fileContent = "{$post->getId()}~{$post->getTitle()}~{$post->getContent()}";
+
+        if ($publishedAt) {
+            $fileContent .= "~{$publishedAt}";
+        }
+
+        return $fileContent;
     }
 }

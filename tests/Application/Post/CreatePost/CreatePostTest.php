@@ -72,10 +72,11 @@ class CreatePostTest extends KernelTestCase
     }
 
     /**
-     * @param array<string, mixed> $postData
+     * @param array<string, string> $postData
      *
      * @return void
      * @throws InvalidPostDataException
+     * @throws Exception
      * @dataProvider provideTrimInvalidData
      */
     public function testCreatePostInvalidData(array $postData)
@@ -90,7 +91,7 @@ class CreatePostTest extends KernelTestCase
         $createPostCommand = new CreatePostCommand(
             $postData['title'] ?? '',
             $postData['content'] ?? '',
-            $postData['publishedAt'] ?? null
+            isset($postData['publishedAt']) ? new DateTime($postData['publishedAt']) : null
         );
 
         $createPostUserCase->create($createPostCommand);
@@ -102,8 +103,8 @@ class CreatePostTest extends KernelTestCase
     public function provideTrimInvalidData(): array
     {
         return [
-            [['title' => 'Mon titre', 'publishedAt' => new DateTime('2022-05-06 12:00:05')]],
-            [['publishedAt' => new DateTime('2022-05-06 12:00:05')]],
+            [['title' => 'Mon titre', 'publishedAt' => '2022-05-06 12:00:05']],
+            [['publishedAt' => '2022-05-06 12:00:05']],
             [[]],
         ];
     }

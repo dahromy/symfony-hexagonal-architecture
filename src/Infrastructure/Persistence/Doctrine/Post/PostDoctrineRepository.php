@@ -12,10 +12,10 @@ use Symfony\Component\Uid\UuidV6;
 /**
  * @extends ServiceEntityRepository<Post>
  *
- * @method Post|null find($id, $lockMode = NULL, $lockVersion = NULL)
- * @method Post|null findOneBy(array $criteria, array $orderBy = NULL)
+ * @method Post|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Post|null findOneBy(array $criteria, array $orderBy = null)
  * @method Post[]    findAll()
- * @method Post[]    findBy(array $criteria, array $orderBy = NULL, $limit = NULL, $offset = NULL)
+ * @method Post[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class PostDoctrineRepository extends ServiceEntityRepository implements PostRepositoryInterface
 {
@@ -31,7 +31,7 @@ class PostDoctrineRepository extends ServiceEntityRepository implements PostRepo
         $this->doctrineParser = $doctrineParser;
     }
 
-    public function remove(Post $entity, bool $flush = FALSE): void
+    public function remove(Post $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -43,10 +43,10 @@ class PostDoctrineRepository extends ServiceEntityRepository implements PostRepo
     public function save(PostDomain $post): void
     {
         $postDoctrine = $this->doctrineParser->toDoctrine($post);
-        $this->add($postDoctrine, TRUE);
+        $this->add($postDoctrine, true);
     }
 
-    public function add(Post $entity, bool $flush = FALSE): Post
+    public function add(Post $entity, bool $flush = false): Post
     {
         $this->getEntityManager()->persist($entity);
 
@@ -62,6 +62,7 @@ class PostDoctrineRepository extends ServiceEntityRepository implements PostRepo
      */
     public function findOneById(string $id): ?PostDomain
     {
+        /** @var ?Post $postDoctrine */
         $postDoctrine = $this
             ->createQueryBuilder('p')
             ->where('p.id = :id')
@@ -69,6 +70,6 @@ class PostDoctrineRepository extends ServiceEntityRepository implements PostRepo
             ->getQuery()
             ->getOneOrNullResult();
 
-        return is_null($postDoctrine) ? NULL : $this->doctrineParser->toDomain($postDoctrine);
+        return is_null($postDoctrine) ? null : $this->doctrineParser->toDomain($postDoctrine);
     }
 }

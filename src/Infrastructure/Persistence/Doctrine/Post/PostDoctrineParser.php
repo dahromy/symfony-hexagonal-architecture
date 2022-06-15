@@ -16,9 +16,9 @@ class PostDoctrineParser
     public function toDomain(PostEntity $postEntity): Post
     {
         return new Post(
-            $postEntity->getId()->toRfc4122(),
-            $postEntity->getTitle(),
-            $postEntity->getContent(),
+            $postEntity->getId() ? $postEntity->getId()->toRfc4122() : '',
+            $postEntity->getTitle() ?? '',
+            $postEntity->getContent() ?? '',
             $postEntity->getPublishedAt(),
         );
     }
