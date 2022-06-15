@@ -14,6 +14,7 @@ use App\Infrastructure\Persistence\InFile\Post\InFilePostParser;
 use App\Infrastructure\Persistence\InFile\Post\InFilePostRepository;
 use App\Infrastructure\Persistence\InMemory\Post\InMemoryPostRepository;
 use DateTime;
+use DateTimeInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Filesystem\Filesystem;
@@ -21,7 +22,9 @@ use Symfony\Component\Filesystem\Filesystem;
 class CreatePostTest extends KernelTestCase
 {
     /**
+     * @return void
      * @throws Exception
+     *
      */
     public function testCreatePost()
     {
@@ -69,14 +72,13 @@ class CreatePostTest extends KernelTestCase
     }
 
     /**
-     * @param $postData
+     * @param array<string, mixed> $postData
      *
      * @return void
-     * @dataProvider provideTrimInvalidData
      * @throws InvalidPostDataException
-     *
+     * @dataProvider provideTrimInvalidData
      */
-    public function testCreatePostInvalidData($postData)
+    public function testCreatePostInvalidData(array $postData)
     {
         $this->expectException(InvalidPostDataException::class);
 
@@ -88,14 +90,14 @@ class CreatePostTest extends KernelTestCase
         $createPostCommand = new CreatePostCommand(
             $postData['title'] ?? '',
             $postData['content'] ?? '',
-            $postData['publishedAt'] ?? NULL
+            $postData['publishedAt'] ?? null
         );
 
         $createPostUserCase->create($createPostCommand);
     }
 
     /**
-     * @return array
+     * @return array<int, array<int, array<string, DateTimeInterface|string>>> array
      */
     public function provideTrimInvalidData(): array
     {

@@ -15,6 +15,7 @@ class InFilePostParser
      */
     public function toDomain(string $fileContent): Post
     {
+        /** @var array<string> $postParts */
         $postParts = preg_split('/~/', $fileContent);
         return new Post($postParts[0], $postParts[1], $postParts[2], new DateTime($postParts[3]));
     }
