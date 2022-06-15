@@ -2,7 +2,7 @@
     <img src="public/assets/hexagon.jpg" alt="hexagon">
 </p>
 
-<h1 style="margin-right: auto; margin-left: auto;">
+<h1 style="display: block; margin: 0 auto;">
   🐘🎯 Hexagonal Architecture, DDD & TDD in Symfony
 </h1>
 
@@ -11,7 +11,7 @@
     <a href="#"><img src="https://img.shields.io/badge/Symfony-5.4-purple.svg?style=flat-square&logo=symfony" alt="Symfony 5.4"/></a>
 </p>
 
-<p style="text-align: center;">
+<p style="display: block; margin: 0 auto;">
    Example of a <strong>Symfony application using Domain-Driven Design (DDD) and <br /> 
    Test Driver Development (TDD) principes</strong> keeping the code as simple as possible.
   <br />
