@@ -26,7 +26,7 @@ class CreatePostTest extends KernelTestCase
     public function testCreatePost()
     {
         $idGenerator = new IdGenerator;
-        $postRepository = $this->getRepository('doctrine');
+        $postRepository = $this->getRepository();
 
         $createPostUserCase = new CreatePostUseCase($postRepository, $idGenerator);
 
