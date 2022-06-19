@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}
+    Create Post
+{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     {{ encore_entry_link_tags('pages/post') }}
@@ -7,7 +11,8 @@
 
 {% block body %}
     <div class="py-5 text-center">
-        <img class="d-block mx-auto mb-4" src="{{ asset('assets/brand/bootstrap-logo.svg') }}" alt="" width="72" height="57">
+        <img class="d-block mx-auto mb-4" src="{{ asset('assets/brand/bootstrap-logo.svg') }}" alt="" width="72"
+             height="57">
         <h2>Create post</h2>
     </div>
 
@@ -16,30 +21,30 @@
             {{ include('components/_alert.html.twig') }}
 
             {{ form_start(form) }}
-                <div class="row g-3">
-                    <div class="col-sm-12">
-                        {{ form_row(form.title) }}
-                    </div>
-                    <div class="col-sm-12">
-                        {{ form_row(form.content) }}
-                    </div>
+            <div class="row g-3">
+                <div class="col-sm-12">
+                    {{ form_row(form.title) }}
+                </div>
+                <div class="col-sm-12">
+                    {{ form_row(form.content) }}
+                </div>
 
-                    <div class="col-sm-12">
-                        <label for="lastName" class="form-label">Published at</label>
-                        <div class="row g3">
-                            <div class="col-sm-6">
-                                {{ form_row(form.publishedAt.date) }}
-                            </div>
-                            <div class="col-sm-6">
-                                {{ form_row(form.publishedAt.time) }}
-                            </div>
+                <div class="col-sm-12">
+                    <label for="lastName" class="form-label">Published at</label>
+                    <div class="row g3">
+                        <div class="col-sm-6">
+                            {{ form_row(form.publishedAt.date) }}
+                        </div>
+                        <div class="col-sm-6">
+                            {{ form_row(form.publishedAt.time) }}
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <hr class="my-4">
+            <hr class="my-4">
 
-                {{ form_row(form.save) }}
+            {{ form_row(form.save) }}
 
             {{ form_end(form) }}
         </div>
