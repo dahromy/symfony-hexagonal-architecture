@@ -22,8 +22,8 @@ class CreatePostInput
     public string $content;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\Blank()
      * @Assert\Type("datetime")
      */
-    public ?DateTime $publishedAt;
+    public ?DateTime $publishedAt = null;
 }
