@@ -30,6 +30,10 @@ App\Infrastructure\Persistence\Doctrine\Post\Post:
                                         type: string
                                         format: date-time
                                         required: false
+                            example:
+                                title: Title for test
+                                content: Content for test
+                                publishedAt: "2022-06-20T22:35:21Z"
                 responses:
                     201:
                         description: Post created
