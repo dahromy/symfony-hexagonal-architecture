@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Infrastructure\Controller\Post;
+namespace App\UI\Http\Web\Controller\Post;
 
 use App\Application\Post\CreatePost\CreatePostCommand;
 use App\Application\Post\CreatePost\CreatePostUseCase;
 use App\Domain\Post\Exceptions\InvalidPostDataException;
 use App\Infrastructure\Persistence\Doctrine\Post\Post;
-use App\UI\Form\Post\PostType;
+use App\UI\Http\Web\Form\Post\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,7 +35,7 @@ class CreatePostController extends AbstractController
             $createPostCommand = new CreatePostCommand(
                 $post->getTitle() ?? '',
                 $post->getContent() ?? '',
-                $post->getPublishedAt() ?? NULL
+                $post->getPublishedAt() ?? null
             );
 
             try {

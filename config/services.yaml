@@ -14,6 +14,12 @@ services:
         bind:
             $rootDir: '%app.db_in_files.root_folder%'
     
+    _instanceof:
+        App\Domain\Shared\Bus\Command\CommandHandlerInterface:
+            public: true
+            tags:
+                - { name: messenger.message_handler, bus: messenger.bus.command }
+    
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -36,8 +42,12 @@ services:
     
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    App\Infrastructure\Controller\:
-        resource: '../src/Infrastructure/Controller/'
+    App\UI\Http\Web\Controller\:
+        resource: '../src/UI/Http/Web/Controller/'
+        tags: [ 'controller.service_arguments' ]
+    
+    App\UI\Http\Rest\Controller\:
+        resource: '../src/UI/Http/Rest/Controller/'
         tags: [ 'controller.service_arguments' ]
     
     App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineParser: ~

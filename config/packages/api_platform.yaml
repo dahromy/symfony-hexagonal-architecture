@@ -1,0 +1,24 @@
+api_platform:
+    title: Symfony DDD
+    description: Symfony Hexagonal Architecture (Clean Architecture)
+    version: 1.0.0
+    defaults:
+        pagination_client_items_per_page: true
+        pagination_items_per_page: 50
+        pagination_items_per_page_parameter_name: limit
+    mapping:
+        paths: [ '%kernel.project_dir%/config/api_platform' ]
+    patch_formats:
+        json: [ 'application/merge-patch+json' ]
+    formats:
+        json: [ 'application/json' ]
+        jsonapi: [ 'application/vnd.api+json' ]
+        jsonhal: [ 'application/hal+json' ]
+        jsonld: [ 'application/ld+json' ]
+        html: [ 'text/html' ]
+    swagger:
+        versions: [ 3 ]
+        api_keys:
+            Bearer:
+                name: Bearer
+                type: header

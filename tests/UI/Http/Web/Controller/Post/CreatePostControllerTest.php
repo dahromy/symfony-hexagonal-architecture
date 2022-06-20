@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Infrastructure\Controller\Post;
+namespace App\Tests\UI\Http\Web\Controller\Post;
 
 use App\Infrastructure\Persistence\Doctrine\Post\Post;
 use App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineRepository;
