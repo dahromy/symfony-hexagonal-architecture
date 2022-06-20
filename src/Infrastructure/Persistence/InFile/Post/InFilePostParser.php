@@ -27,7 +27,7 @@ class InFilePostParser
         $fileContent = "{$post->getId()}~{$post->getTitle()}~{$post->getContent()}";
 
         if ($publishedAt) {
-            $fileContent .= "~{$publishedAt}";
+            $fileContent .= "~$publishedAt";
         }
 
         return $fileContent;
