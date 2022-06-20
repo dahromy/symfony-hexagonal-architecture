@@ -15,7 +15,7 @@ services:
             $rootDir: '%app.db_in_files.root_folder%'
     
     _instanceof:
-        App\Domain\Shared\Bus\Command\CommandHandlerInterface:
+        App\Infrastructure\Shared\Bus\Command\CommandHandlerInterface:
             public: true
             tags:
                 - { name: messenger.message_handler, bus: messenger.bus.command }

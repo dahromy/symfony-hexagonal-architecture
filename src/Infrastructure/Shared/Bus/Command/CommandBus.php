@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Domain\Shared\Bus\Command;
+namespace App\Infrastructure\Shared\Bus\Command;
 
-use App\Domain\Shared\Bus\MessageBusExceptionTrait;
+use App\Infrastructure\Shared\Bus\MessageBusExceptionTrait;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Throwable;

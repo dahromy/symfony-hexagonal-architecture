@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Shared\Bus\Command;
+namespace App\Infrastructure\Shared\Bus\Command;
 
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 

@@ -5,7 +5,7 @@ namespace App\Infrastructure\Api\Post\CreatePost;
 use App\Application\Post\CreatePost\CreatePostCommand;
 use App\Application\Post\CreatePost\CreatePostUseCase;
 use App\Domain\Post\Exceptions\InvalidPostDataException;
-use App\Domain\Shared\Bus\Command\CommandHandlerInterface;
+use App\Infrastructure\Shared\Bus\Command\CommandHandlerInterface;
 
 class CreatePostCommandHandler implements CommandHandlerInterface
 {
