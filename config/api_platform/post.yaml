@@ -1,16 +1,19 @@
-App\Infrastructure\Persistence\Doctrine\Post\Post:
+App\Domain\Post\Post:
+    properties:
+        id:
+            identifier: true
     
     collectionOperations:
-        post:
+        create_post:
             method: POST
             path: '/posts/create'
             messenger: true
-            input: App\Infrastructure\Api\Post\CreatePost\CreatePostInput
+            input: App\Application\Post\CreatePost\CreatePostInput
             output: false
             validate: false
             status: 201
             openapi_context:
-                summary: Create a user account
+                summary: Creates a Post resource.
                 requestBody:
                     required: true
                     content:
@@ -30,14 +33,10 @@ App\Infrastructure\Persistence\Doctrine\Post\Post:
                                         type: string
                                         format: date-time
                                         required: false
-                            example:
-                                title: Title for test
-                                content: Content for test
-                                publishedAt: "2022-06-20T22:35:21Z"
                 responses:
                     201:
                         description: Post created
                     400:
                         description: Invalid input
     
-    itemOperations: [ ]
+    itemOperations: []

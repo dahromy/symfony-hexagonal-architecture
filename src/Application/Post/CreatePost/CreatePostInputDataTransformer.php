@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Infrastructure\Api\Post\CreatePost;
+namespace App\Application\Post\CreatePost;
 
 use ApiPlatform\Core\DataTransformer\DataTransformerInterface;
 use ApiPlatform\Core\Validator\ValidatorInterface;
-use App\Application\Post\CreatePost\CreatePostCommand;
 use InvalidArgumentException;
 use function sprintf;
 
@@ -18,8 +17,8 @@ class CreatePostInputDataTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param object               $object
-     * @param string               $to
+     * @param object $object
+     * @param string $to
      * @param array<string, mixed> $context
      *
      * @return CreatePostCommand
@@ -40,8 +39,8 @@ class CreatePostInputDataTransformer implements DataTransformerInterface
     }
 
     /**
-     * @param mixed                $data
-     * @param string               $to
+     * @param mixed $data
+     * @param string $to
      * @param array<string, mixed> $context
      *
      * @return bool

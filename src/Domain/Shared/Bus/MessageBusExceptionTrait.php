@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Shared\Bus;
+namespace App\Domain\Shared\Bus;
 
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Throwable;

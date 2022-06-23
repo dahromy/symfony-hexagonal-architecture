@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Api\Post\CreatePost;
+namespace App\Application\Post\CreatePost;
 
 use DateTime;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -22,8 +22,7 @@ class CreatePostInput
     public string $content;
 
     /**
-     * @Assert\Blank()
      * @Assert\Type("datetime")
      */
-    public ?DateTime $publishedAt = null;
+    public ?DateTime $publishedAt;
 }

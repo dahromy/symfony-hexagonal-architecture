@@ -15,7 +15,7 @@ services:
             $rootDir: '%app.db_in_files.root_folder%'
     
     _instanceof:
-        App\Infrastructure\Shared\Bus\Command\CommandHandlerInterface:
+        App\Domain\Shared\Bus\Command\CommandHandlerInterface:
             public: true
             tags:
                 - { name: messenger.message_handler, bus: messenger.bus.command }
@@ -44,13 +44,14 @@ services:
     # please note that last definitions always *replace* previous ones
     App\UI\Http\Web\Controller\:
         resource: '../src/UI/Http/Web/Controller/'
-        tags: [ 'controller.service_arguments' ]
+        tags: ['controller.service_arguments']
     
     App\UI\Http\Rest\Controller\:
         resource: '../src/UI/Http/Rest/Controller/'
-        tags: [ 'controller.service_arguments' ]
+        tags: ['controller.service_arguments']
     
     App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineParser: ~
     App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineRepository: ~
+    App\Infrastructure\Persistence\InFile\Post\InFilePostRepository: ~
     
     App\Domain\Post\Services\PostRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineRepository'
