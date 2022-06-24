@@ -75,13 +75,13 @@ $ tree -L 5 src
 src
 ├── Application // The application layer of our app
 │   └── Post // Inside the application layer all is structured by actions
-│       └── CreatePost
+│       └── Create
 │           ├── CreatePostCommand.php
 │           └── CreatePostUseCase.php
 ├── Domain // The domain layer of our app
 │   └── Post
 │       ├── Post.php // The Aggregate of the Module
-│       └── Services
+│       └── Repository
 │           └── PostRepositoryInterface.php // The `Interface` of the repository is inside Domain
 ├── Infrastructure // The layer infrastructure of our app
 │   ├── Controller

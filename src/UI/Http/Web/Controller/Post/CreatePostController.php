@@ -2,10 +2,10 @@
 
 namespace App\UI\Http\Web\Controller\Post;
 
-use App\Application\Post\CreatePost\CreatePostCommand;
-use App\Application\Post\CreatePost\CreatePostUseCase;
-use App\Domain\Post\Exceptions\InvalidPostDataException;
-use App\Infrastructure\Persistence\Doctrine\Post\Post;
+use App\Application\UseCase\Command\Post\Create\CreatePostCommand;
+use App\Application\UseCase\Command\Post\Create\CreatePostUseCase;
+use App\Domain\Post\Exception\InvalidPostDataException;
+use App\Infrastructure\Post\Doctrine\Post;
 use App\UI\Http\Web\Form\Post\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CreatePostController extends AbstractController
 {
     /**
-     * @param Request           $request
+     * @param Request $request
      * @param CreatePostUseCase $createPostUseCase
      *
      * @return Response

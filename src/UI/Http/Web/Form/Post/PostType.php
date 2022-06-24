@@ -2,7 +2,7 @@
 
 namespace App\UI\Http\Web\Form\Post;
 
-use App\Infrastructure\Persistence\Doctrine\Post\Post;
+use App\Infrastructure\Post\Doctrine\Post;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

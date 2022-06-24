@@ -2,8 +2,8 @@
 
 namespace App\Tests\UI\Http\Web\Controller\Post;
 
-use App\Infrastructure\Persistence\Doctrine\Post\Post;
-use App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineRepository;
+use App\Infrastructure\Post\Doctrine\Post;
+use App\Infrastructure\Post\Repository\DoctrinePostRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -11,7 +11,7 @@ class CreatePostControllerTest extends WebTestCase
 {
 
     private KernelBrowser $client;
-    private PostDoctrineRepository $repository;
+    private DoctrinePostRepository $repository;
     private string $path = '/posts/create/';
 
     public function testPage(): void

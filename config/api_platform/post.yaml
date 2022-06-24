@@ -8,7 +8,7 @@ App\Domain\Post\Post:
             method: POST
             path: '/posts/create'
             messenger: true
-            input: App\Application\Post\CreatePost\CreatePostInput
+            input: App\Application\UseCase\Command\Post\Create\CreatePostInput
             output: false
             validate: false
             status: 201

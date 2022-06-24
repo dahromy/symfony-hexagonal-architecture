@@ -15,7 +15,7 @@ services:
             $rootDir: '%app.db_in_files.root_folder%'
     
     _instanceof:
-        App\Domain\Shared\Bus\Command\CommandHandlerInterface:
+        App\Infrastructure\Shared\Bus\Command\CommandHandlerInterface:
             public: true
             tags:
                 - { name: messenger.message_handler, bus: messenger.bus.command }
@@ -25,17 +25,16 @@ services:
     App\:
         resource: '../src/'
         exclude:
-            - '../src/DependencyInjection/'
             - '../src/Domain/'
             - '../src/Application/**/*Command.php'
             - '../src/Application/**/*Response.php'
-            - '../src/Infrastructure/Persistence/Doctrine/'
+            - '../src/Infrastructure/**/Doctrine/'
             - '../src/Kernel.php'
             - '../src/Tests/'
             - '../migrations'
     
-    App\Infrastructure\Persistence\Doctrine\:
-        resource: '../src/Infrastructure/Persistence/Doctrine/**/*Parser.php'
+    App\Infrastructure\Post\Doctrine\:
+        resource: '../src/Infrastructure/Post/Doctrine/*Parser.php'
     
     App\Domain\Shared\:
         resource: '../src/Domain/Shared/'
@@ -50,8 +49,8 @@ services:
         resource: '../src/UI/Http/Rest/Controller/'
         tags: ['controller.service_arguments']
     
-    App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineParser: ~
-    App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineRepository: ~
-    App\Infrastructure\Persistence\InFile\Post\InFilePostRepository: ~
+    App\Infrastructure\Post\Doctrine\PostDoctrineParser: ~
+    App\Infrastructure\Post\Repository\DoctrinePostRepository: ~
+    App\Infrastructure\Post\Repository\InFilePostRepository: ~
     
-    App\Domain\Post\Services\PostRepositoryInterface: '@App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineRepository'
+    App\Domain\Post\Repository\PostRepositoryInterface: '@App\Infrastructure\Post\Repository\DoctrinePostRepository'

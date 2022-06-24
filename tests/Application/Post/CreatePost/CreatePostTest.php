@@ -2,17 +2,17 @@
 
 namespace App\Tests\Application\Post\CreatePost;
 
-use App\Application\Post\CreatePost\CreatePostCommand;
-use App\Application\Post\CreatePost\CreatePostResponse;
-use App\Application\Post\CreatePost\CreatePostUseCase;
-use App\Domain\Post\Exceptions\InvalidPostDataException;
+use App\Application\UseCase\Command\Post\Create\CreatePostCommand;
+use App\Application\UseCase\Command\Post\Create\CreatePostResponse;
+use App\Application\UseCase\Command\Post\Create\CreatePostUseCase;
+use App\Domain\Post\Exception\InvalidPostDataException;
 use App\Domain\Shared\IdGenerator;
-use App\Infrastructure\Persistence\Doctrine\Post\Post as PostEntity;
-use App\Infrastructure\Persistence\Doctrine\Post\PostDoctrineRepository;
-use App\Infrastructure\Persistence\InFile\FilesystemHandler;
-use App\Infrastructure\Persistence\InFile\Post\InFilePostParser;
-use App\Infrastructure\Persistence\InFile\Post\InFilePostRepository;
-use App\Infrastructure\Persistence\InMemory\Post\InMemoryPostRepository;
+use App\Infrastructure\Bridge\InFile\FilesystemHandler;
+use App\Infrastructure\Post\Doctrine\Post as PostEntity;
+use App\Infrastructure\Post\InFile\InFilePostParser;
+use App\Infrastructure\Post\Repository\DoctrinePostRepository;
+use App\Infrastructure\Post\Repository\InFilePostRepository;
+use App\Infrastructure\Post\Repository\InMemoryPostRepository;
 use DateTime;
 use DateTimeInterface;
 use Exception;
@@ -48,7 +48,7 @@ class CreatePostTest extends KernelTestCase
     /**
      * @param string $type
      *
-     * @return InFilePostRepository|InMemoryPostRepository|PostDoctrineRepository
+     * @return InFilePostRepository|InMemoryPostRepository|DoctrinePostRepository
      */
     public function getRepository(string $type = 'memory')
     {
