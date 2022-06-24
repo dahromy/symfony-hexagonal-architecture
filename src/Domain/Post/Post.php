@@ -6,7 +6,6 @@ use DateTimeInterface;
 
 class Post
 {
-
     private string $id;
     private string $title;
     private string $content;

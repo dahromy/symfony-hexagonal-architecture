@@ -2,7 +2,6 @@
 
 namespace App\UI\Http\Web\Form\Post;
 
-use App\Infrastructure\Post\Doctrine\Post;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -36,7 +35,6 @@ class PostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Post::class,
             'attr' => [
                 'class' => 'needs-validation',
                 'novalidate' => true,

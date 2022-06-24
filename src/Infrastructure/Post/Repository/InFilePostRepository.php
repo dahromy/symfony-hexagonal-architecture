@@ -18,7 +18,7 @@ class InFilePostRepository implements PostRepositoryInterface
     /**
      * NeighbourInFileRepository constructor.
      *
-     * @param \App\Infrastructure\Bridge\InFile\FilesystemHandler $filesystemHandler
+     * @param FilesystemHandler $filesystemHandler
      * @param InFilePostParser $fileParser
      */
     public function __construct(FilesystemHandler $filesystemHandler, InFilePostParser $fileParser)

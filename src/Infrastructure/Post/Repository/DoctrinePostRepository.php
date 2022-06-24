@@ -2,17 +2,14 @@
 
 namespace App\Infrastructure\Post\Repository;
 
-use App\Domain\Post\Post as PostDomain;
+use App\Domain\Post\Post;
 use App\Domain\Post\Repository\PostRepositoryInterface;
-use App\Infrastructure\Post\Doctrine\Post;
-use App\Infrastructure\Post\Doctrine\PostDoctrineParser;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Uid\UuidV6;
 
 /**
- * @extends ServiceEntityRepository<\App\Infrastructure\Post\Doctrine\Post>
+ * @extends ServiceEntityRepository<Post>
  *
  * @method Post|null find($id, $lockMode = null, $lockVersion = null)
  * @method Post|null findOneBy(array $criteria, array $orderBy = null)
@@ -21,16 +18,12 @@ use Symfony\Component\Uid\UuidV6;
  */
 class DoctrinePostRepository extends ServiceEntityRepository implements PostRepositoryInterface
 {
-    private PostDoctrineParser $doctrineParser;
-
     /**
      * @param ManagerRegistry $registry
-     * @param \App\Infrastructure\Post\Doctrine\PostDoctrineParser $doctrineParser
      */
-    public function __construct(ManagerRegistry $registry, PostDoctrineParser $doctrineParser)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Post::class);
-        $this->doctrineParser = $doctrineParser;
     }
 
     public function remove(Post $entity, bool $flush = false): void
@@ -42,10 +35,9 @@ class DoctrinePostRepository extends ServiceEntityRepository implements PostRepo
         }
     }
 
-    public function save(PostDomain $post): void
+    public function save(Post $post): void
     {
-        $postDoctrine = $this->doctrineParser->toDoctrine($post);
-        $this->add($postDoctrine, true);
+        $this->add($post, true);
     }
 
     public function add(Post $entity, bool $flush = false): Post
@@ -62,16 +54,13 @@ class DoctrinePostRepository extends ServiceEntityRepository implements PostRepo
     /**
      * @throws NonUniqueResultException
      */
-    public function findOneById(string $id): ?PostDomain
+    public function findOneById(string $id): ?Post
     {
-        /** @var ?\App\Infrastructure\Post\Doctrine\Post $postDoctrine */
-        $postDoctrine = $this
+        return $this
             ->createQueryBuilder('p')
             ->where('p.id = :id')
-            ->setParameter('id', UuidV6::fromString($id)->toBinary())
+            ->setParameter('id', $id)
             ->getQuery()
             ->getOneOrNullResult();
-
-        return is_null($postDoctrine) ? null : $this->doctrineParser->toDomain($postDoctrine);
     }
 }

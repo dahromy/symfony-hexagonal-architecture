@@ -12,9 +12,9 @@ doctrine:
         mappings:
             Post:
                 is_bundle: false
-                type: annotation
-                dir: '%kernel.project_dir%/src/Infrastructure/Post/Doctrine'
-                prefix: 'App\Infrastructure\Post\Doctrine'
+                type: yml
+                dir: '%kernel.project_dir%/src/Infrastructure/Post/Doctrine/Orm/Mapping'
+                prefix: 'App\Domain\Post'
                 alias: Post
 
 when@test:

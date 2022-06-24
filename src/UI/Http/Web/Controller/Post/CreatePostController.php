@@ -5,7 +5,6 @@ namespace App\UI\Http\Web\Controller\Post;
 use App\Application\UseCase\Command\Post\Create\CreatePostCommand;
 use App\Application\UseCase\Command\Post\Create\CreatePostUseCase;
 use App\Domain\Post\Exception\InvalidPostDataException;
-use App\Infrastructure\Post\Doctrine\Post;
 use App\UI\Http\Web\Form\Post\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,17 +24,15 @@ class CreatePostController extends AbstractController
      */
     public function __invoke(Request $request, CreatePostUseCase $createPostUseCase): Response
     {
-        $post = new Post();
-
-        $form = $this->createForm(PostType::class, $post);
+        $form = $this->createForm(PostType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() and $form->isValid()) {
 
             $createPostCommand = new CreatePostCommand(
-                $post->getTitle() ?? '',
-                $post->getContent() ?? '',
-                $post->getPublishedAt() ?? null
+                $form->get('title')->getData(),
+                $form->get('content')->getData(),
+                $form->get('publishedAt')->getData(),
             );
 
             try {

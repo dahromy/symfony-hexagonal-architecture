@@ -1,0 +1,17 @@
+App\Domain\Post\Post:
+    type: entity
+    repositoryClass: App\Infrastructure\Post\Repository\DoctrinePostRepository
+    table: post
+    id:
+        id:
+            type: string
+            unique: true
+    fields:
+        title:
+            type: string
+            length: 50
+        content:
+            type: text
+        publishedAt:
+            type: datetime
+            nullable: true

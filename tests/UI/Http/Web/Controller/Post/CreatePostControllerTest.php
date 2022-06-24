@@ -2,7 +2,7 @@
 
 namespace App\Tests\UI\Http\Web\Controller\Post;
 
-use App\Infrastructure\Post\Doctrine\Post;
+use App\Domain\Post\Post;
 use App\Infrastructure\Post\Repository\DoctrinePostRepository;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
