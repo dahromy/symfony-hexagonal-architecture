@@ -8,6 +8,7 @@ use App\Domain\Post\Repository\PostRepositoryInterface;
 use App\Domain\Shared\IdGenerator;
 use Assert\LazyAssertionException;
 use DateTimeInterface;
+use Symfony\Component\Uid\Uuid;
 use function Assert\lazy;
 
 class CreatePostUseCase
@@ -48,14 +49,20 @@ class CreatePostUseCase
         }
     }
 
-    private function generatePostId(): string
+    /**
+     * @return Uuid
+     */
+    private function generatePostId(): Uuid
     {
         $maxAttempts = 5;
         $attempts = 0;
+
         $id = $this->idGenerator->generate();
 
         while ($attempts < $maxAttempts && !is_null($this->postRepository->findOneById($id))) {
+
             $id = $this->idGenerator->generate();
+
             $attempts++;
             if ($attempts >= $maxAttempts) {
                 // throw new IdGenerationAttemptsExceeded($maxAttempts);

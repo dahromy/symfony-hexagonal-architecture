@@ -3,10 +3,11 @@
 namespace App\Domain\Post;
 
 use DateTimeInterface;
+use Symfony\Component\Uid\Uuid;
 
 class Post
 {
-    private string $id;
+    private Uuid $id;
     private string $title;
     private string $content;
     private ?DateTimeInterface $publishedAt;
@@ -14,7 +15,7 @@ class Post
     /**
      * Post constructor.
      */
-    public function __construct(string $id, string $title, string $content, ?DateTimeInterface $publishedAt)
+    public function __construct(Uuid $id, string $title, string $content, ?DateTimeInterface $publishedAt)
     {
         $this->id = $id;
         $this->title = $title;
@@ -23,9 +24,9 @@ class Post
     }
 
     /**
-     * @return string
+     * @return Uuid
      */
-    public function getId(): string
+    public function getId(): Uuid
     {
         return $this->id;
     }

@@ -6,9 +6,9 @@ use App\Application\UseCase\Command\Post\Create\CreatePostCommand;
 use App\Application\UseCase\Command\Post\Create\CreatePostResponse;
 use App\Application\UseCase\Command\Post\Create\CreatePostUseCase;
 use App\Domain\Post\Exception\InvalidPostDataException;
+use App\Domain\Post\Post;
 use App\Domain\Shared\IdGenerator;
 use App\Infrastructure\Bridge\InFile\FilesystemHandler;
-use App\Infrastructure\Post\Doctrine\Post as PostEntity;
 use App\Infrastructure\Post\InFile\InFilePostParser;
 use App\Infrastructure\Post\Repository\DoctrinePostRepository;
 use App\Infrastructure\Post\Repository\InFilePostRepository;
@@ -54,14 +54,16 @@ class CreatePostTest extends KernelTestCase
     {
         switch ($type) {
             case'file';
+                /** @var string $rootDir */
+                $rootDir = static::getContainer()->getParameter('app.db_in_files.root_folder');
                 $fileSystem = new Filesystem();
-                $fileHandler = new FilesystemHandler($fileSystem, static::getContainer()->getParameter('app.db_in_files.root_folder'));
+                $fileHandler = new FilesystemHandler($fileSystem, $rootDir);
                 $postParser = new InFilePostParser();
                 $repository = new InFilePostRepository($fileHandler, $postParser);
 
                 break;
             case'doctrine':
-                $repository = static::getContainer()->get('doctrine')->getRepository(PostEntity::class);
+                $repository = static::getContainer()->get('doctrine')->getRepository(Post::class);
                 break;
             default:
                 $repository = new InMemoryPostRepository();

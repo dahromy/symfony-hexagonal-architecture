@@ -31,7 +31,7 @@ services:
             - '../src/Infrastructure/**/Doctrine/'
             - '../src/Kernel.php'
             - '../src/Tests/'
-            - '../migrations'
+            - '../src/Infrastructure/Shared/Migrations'
     
     App\Infrastructure\Post\Doctrine\:
         resource: '../src/Infrastructure/Post/Doctrine/*Parser.php'
@@ -49,7 +49,6 @@ services:
         resource: '../src/UI/Http/Rest/Controller/'
         tags: ['controller.service_arguments']
     
-    App\Infrastructure\Post\Doctrine\PostDoctrineParser: ~
     App\Infrastructure\Post\Repository\DoctrinePostRepository: ~
     App\Infrastructure\Post\Repository\InFilePostRepository: ~
     

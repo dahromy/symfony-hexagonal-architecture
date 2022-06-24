@@ -6,8 +6,8 @@ use Symfony\Component\Uid\Uuid;
 
 class IdGenerator
 {
-    public function generate(): string
+    public function generate(): Uuid
     {
-        return Uuid::v6()->toRfc4122();
+        return Uuid::v6();
     }
 }

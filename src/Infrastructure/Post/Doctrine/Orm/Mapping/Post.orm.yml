@@ -4,7 +4,7 @@ App\Domain\Post\Post:
     table: post
     id:
         id:
-            type: string
+            type: uuid
             unique: true
     fields:
         title:

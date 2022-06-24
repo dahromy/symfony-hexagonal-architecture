@@ -7,6 +7,7 @@ use App\Domain\Post\Repository\PostRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @extends ServiceEntityRepository<Post>
@@ -54,12 +55,12 @@ class DoctrinePostRepository extends ServiceEntityRepository implements PostRepo
     /**
      * @throws NonUniqueResultException
      */
-    public function findOneById(string $id): ?Post
+    public function findOneById(Uuid $id): ?Post
     {
         return $this
             ->createQueryBuilder('p')
             ->where('p.id = :id')
-            ->setParameter('id', $id)
+            ->setParameter('id', $id->toBinary())
             ->getQuery()
             ->getOneOrNullResult();
     }
