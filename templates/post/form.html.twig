@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="col-sm-12">
-                    <label for="lastName" class="form-label">Published at</label>
+                    {{ form_label(form.publishedAt) }}
                     <div class="row g3">
                         <div class="col-sm-6">
                             {{ form_row(form.publishedAt.date) }}

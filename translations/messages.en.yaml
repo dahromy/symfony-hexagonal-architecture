@@ -1,0 +1,6 @@
+form:
+    save: 'Save'
+    post:
+        title: 'Title'
+        content: 'Content'
+        publishedAt: 'Published at'
