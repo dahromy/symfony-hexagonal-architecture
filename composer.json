@@ -64,7 +64,8 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "src/"
+      "App\\": "src/",
+      "DoctrineMigrations\\": "src/Infrastructure/Shared/Migration/"
     }
   },
   "autoload-dev": {

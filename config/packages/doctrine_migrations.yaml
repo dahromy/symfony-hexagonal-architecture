@@ -5,5 +5,5 @@ doctrine_migrations:
         'DoctrineMigrations': '%kernel.project_dir%/src/Infrastructure/Shared/Migration'
     
     # available in version >= 1.2. Possible values: "BY_YEAR", "BY_YEAR_AND_MONTH", false
-    organize_migrations: BY_YEAR_AND_MONTH
+    organize_migrations: false
     enable_profiler: '%kernel.debug%'
