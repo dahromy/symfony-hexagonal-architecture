@@ -53,15 +53,20 @@ class DoctrinePostRepository extends ServiceEntityRepository implements PostRepo
     }
 
     /**
+     * @param Uuid $id
+     * @return Post|null
      * @throws NonUniqueResultException
      */
     public function findOneById(Uuid $id): ?Post
     {
-        return $this
+        /** @var Post|null $qb */
+        $qb = $this
             ->createQueryBuilder('p')
             ->where('p.id = :id')
             ->setParameter('id', $id->toBinary())
             ->getQuery()
             ->getOneOrNullResult();
+
+        return $qb;
     }
 }

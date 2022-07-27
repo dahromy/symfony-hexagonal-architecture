@@ -6,6 +6,7 @@ use App\Application\UseCase\Command\Post\Create\CreatePostCommand;
 use App\Application\UseCase\Command\Post\Create\CreatePostUseCase;
 use App\Domain\Post\Exception\InvalidPostDataException;
 use App\UI\Http\Web\Form\Post\PostType;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,10 +30,17 @@ class CreatePostController extends AbstractController
 
         if ($form->isSubmitted() and $form->isValid()) {
 
+            /** @var string $title */
+            $title = $form->get('title')->getData();
+
+            /** @var string $content */
+            $content = $form->get('content')->getData();
+
+            /** @var DateTime|null $publishedAt */
+            $publishedAt = $form->get('publishedAt')->getData();
+
             $createPostCommand = new CreatePostCommand(
-                $form->get('title')->getData(),
-                $form->get('content')->getData(),
-                $form->get('publishedAt')->getData(),
+                $title, $content, $publishedAt
             );
 
             try {

@@ -4,6 +4,7 @@ namespace App\Tests\UI\Http\Web\Controller\Post;
 
 use App\Domain\Post\Post;
 use App\Infrastructure\Post\Repository\DoctrinePostRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -47,7 +48,13 @@ class CreatePostControllerTest extends WebTestCase
     {
         $this->client = static::createClient();
 
-        $this->repository = (static::getContainer()->get('doctrine'))->getRepository(Post::class);
+        /** @var EntityManagerInterface $doctrine */
+        $doctrine = static::getContainer()->get('doctrine');
+
+        /** @var DoctrinePostRepository $repository */
+        $repository = $doctrine->getRepository(Post::class);
+
+        $this->repository = $repository;
 
         foreach ($this->repository->findAll() as $object) {
             $this->repository->remove($object, true);

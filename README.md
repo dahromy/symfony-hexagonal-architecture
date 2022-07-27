@@ -100,7 +100,6 @@ src
 │           └── Post
 │               └── InMemoryPostRepository.php
 └── Kernel.php
-
 ```
 
 ## 🤔 Contributing

@@ -4,9 +4,8 @@ App\Domain\Post\Post:
             identifier: true
     
     collectionOperations:
-        create_post:
+        post:
             method: POST
-            path: '/posts/create'
             messenger: true
             input: App\Application\UseCase\Command\Post\Create\CreatePostInput
             output: false

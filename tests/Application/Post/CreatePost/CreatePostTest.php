@@ -15,6 +15,7 @@ use App\Infrastructure\Post\Repository\InFilePostRepository;
 use App\Infrastructure\Post\Repository\InMemoryPostRepository;
 use DateTime;
 use DateTimeInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Filesystem\Filesystem;
@@ -63,7 +64,11 @@ class CreatePostTest extends KernelTestCase
 
                 break;
             case'doctrine':
-                $repository = static::getContainer()->get('doctrine')->getRepository(Post::class);
+                /** @var EntityManagerInterface $doctrine */
+                $doctrine = static::getContainer()->get('doctrine');
+
+                /** @var DoctrinePostRepository $repository */
+                $repository = $doctrine->getRepository(Post::class);
                 break;
             default:
                 $repository = new InMemoryPostRepository();

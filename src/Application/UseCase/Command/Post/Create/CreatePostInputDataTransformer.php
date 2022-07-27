@@ -41,7 +41,7 @@ class CreatePostInputDataTransformer implements DataTransformerInterface
     /**
      * @param mixed $data
      * @param string $to
-     * @param array<string, mixed> $context
+     * @param array<string, array<string>> $context
      *
      * @return bool
      */
