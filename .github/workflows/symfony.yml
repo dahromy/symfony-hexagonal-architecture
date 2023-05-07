@@ -41,7 +41,7 @@ jobs:
       run: |
         mkdir -p data
         touch data/database.sqlite
-        php bin/console d:s:u --force
+        bin/console d:s:u --force
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DATABASE_URL: sqlite:///%kernel.project_dir%/data/database.sqlite
