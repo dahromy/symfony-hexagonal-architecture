@@ -5,11 +5,13 @@ namespace App\UI\Http\Web\Controller\Post;
 use App\Application\UseCase\Command\Post\Create\CreatePostCommand;
 use App\Application\UseCase\Command\Post\Create\CreatePostUseCase;
 use App\Domain\Post\Exception\InvalidPostDataException;
+use App\Domain\Shared\Http\FlashMessageServiceInterface;
+use App\Domain\Shared\Http\HttpResponseFactoryInterface;
+use App\Domain\Shared\Http\HttpResponseInterface;
 use App\UI\Http\Web\Form\Post\PostType;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -17,13 +19,24 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CreatePostController extends AbstractController
 {
+    private HttpResponseFactoryInterface $responseFactory;
+    private FlashMessageServiceInterface $flashMessageService;
+
+    public function __construct(
+        HttpResponseFactoryInterface $responseFactory,
+        FlashMessageServiceInterface $flashMessageService
+    ) {
+        $this->responseFactory = $responseFactory;
+        $this->flashMessageService = $flashMessageService;
+    }
+
     /**
      * @param Request $request
      * @param CreatePostUseCase $createPostUseCase
      *
-     * @return Response
+     * @return HttpResponseInterface
      */
-    public function __invoke(Request $request, CreatePostUseCase $createPostUseCase): Response
+    public function __invoke(Request $request, CreatePostUseCase $createPostUseCase): HttpResponseInterface
     {
         $form = $this->createForm(PostType::class);
         $form->handleRequest($request);
@@ -46,15 +59,15 @@ class CreatePostController extends AbstractController
             try {
                 $post = $createPostUseCase->create($createPostCommand);
 
-                $this->addFlash('success', "{$post->getPost()->getTitle()} created.");
+                $this->flashMessageService->add('success', "{$post->getPost()->getTitle()} created.");
 
-                return $this->redirectToRoute('app.post.create');
+                return $this->responseFactory->redirect('app.post.create');
             } catch (InvalidPostDataException $dataException) {
-                $this->addFlash('error', $dataException->getMessage());
+                $this->flashMessageService->add('error', $dataException->getMessage());
             }
         }
 
-        return $this->render('post/form.html.twig', [
+        return $this->responseFactory->render('post/form.html.twig', [
             'form' => $form->createView(),
         ]);
     }
