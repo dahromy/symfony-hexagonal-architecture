@@ -74,33 +74,49 @@ $ tree -L 5 src
     
 src
 ├── Application // The application layer of our app
-│   └── Post // Inside the application layer all is structured by actions
-│       └── Create
-│           ├── CreatePostCommand.php
-│           └── CreatePostUseCase.php
+│   └── UseCase // All use cases are structured by commands and queries
+│       └── Command
+│           └── Post
+│               └── Create
+│                   ├── CreatePostCommand.php
+│                   ├── CreatePostUseCase.php
+│                   └── ...
 ├── Domain // The domain layer of our app
 │   └── Post
 │       ├── Post.php // The Aggregate of the Module
 │       └── Repository
 │           └── PostRepositoryInterface.php // The `Interface` of the repository is inside Domain
 ├── Infrastructure // The layer infrastructure of our app
-│   ├── Controller
-│   └── Persistence
+│   └── Post
 │       ├── Doctrine
-│       │   └── Post
-│       │       ├── PostDoctrineParser.php
-│       │       ├── PostDoctrineRepository.php // An implementation of the repository
-│       │       └── Post.php
+│       │   └── Orm
+│       │       └── Mapping
+│       │           └── Post.orm.yml // YML mapping for direct domain entity mapping
 │       ├── InFile
-│       │   ├── FilesystemHandler.php
-│       │   └── Post
-│       │       ├── InFilePostParser.php
-│       │       └── InFilePostRepository.php
-│       └── InMemory
-│           └── Post
-│               └── InMemoryPostRepository.php
+│       │   ├── InFilePostParser.php
+│       │   └── InFilePostRepository.php
+│       └── Repository
+│           ├── DoctrinePostRepository.php // An implementation of the repository
+│           ├── InFilePostRepository.php
+│           └── InMemoryPostRepository.php
 └── Kernel.php
 ```
+
+#### 🏗️ Architecture Decisions
+
+This repository demonstrates a **direct domain mapping** approach with Doctrine ORM, where domain entities are mapped directly to the database using YML configuration files, rather than using separate infrastructure entities.
+
+**Key Benefits:**
+- ✅ **Simplicity**: Single entity class represents each domain concept
+- ✅ **No Duplication**: One source of truth for entity structure
+- ✅ **Better Performance**: No conversion overhead between domain and infrastructure entities
+- ✅ **Easier Maintenance**: Changes made in one place
+- ✅ **Clean Domain**: Pure domain entities without persistence annotations
+
+**📚 Documentation:**
+- 📖 **[Architecture Decisions](docs/ARCHITECTURE_DECISIONS.md)** - Why we moved from infrastructure entities to direct domain mapping
+- 🛠️ **[Practical Examples](docs/EXAMPLES.md)** - Working code examples for value objects, collections, and aggregates  
+- ❓ **[FAQ: Infrastructure Entities](docs/ISSUE_ANSWER.md)** - Quick answers to common DDD/Doctrine questions
 
 ## 🤔 Contributing
 
