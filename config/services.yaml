@@ -53,3 +53,7 @@ services:
     App\Infrastructure\Post\Repository\InFilePostRepository: ~
     
     App\Domain\Post\Repository\PostRepositoryInterface: '@App\Infrastructure\Post\Repository\DoctrinePostRepository'
+    
+    # HTTP Response Services
+    App\Domain\Shared\Http\HttpResponseFactoryInterface: '@App\Infrastructure\Shared\Http\SymfonyHttpResponseFactory'
+    App\Domain\Shared\Http\FlashMessageServiceInterface: '@App\Infrastructure\Shared\Http\SymfonyFlashMessageService'
